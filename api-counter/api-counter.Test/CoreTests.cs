@@ -30,21 +30,21 @@ namespace api_counter.Test
         {
             // Setup
             CounterController _counterController = new CounterController();
-            _counterController.counter = new Counter { Value = 0 };
+            _counterController.counter = new Counter(0);
 
             // Arrange
-            var expectedData = new Counter { Value = 0 };
+            var expectedData =new Counter(0);
 
             // Act
             // @TODO Replace PlaceholderFunction with your own function name that will return the counter
-            var result = _counterController.PlaceholderFunction().Result as OkObjectResult;
+            var result = _counterController.Get();
 
             // Assert
             Assert.IsNotNull(result);
-            var actualData = result.Value as Counter;
+            var actualData = result.Value;
             Assert.IsNotNull(actualData);
 
-            Assert.That(actualData.Value, Is.EqualTo(expectedData.Value));
+            Assert.That(actualData, Is.EqualTo(expectedData.Value));
             
         }
 
@@ -55,29 +55,29 @@ namespace api_counter.Test
         {
             // Setup
             CounterController _counterController = new CounterController();
-            _counterController.counter = new Counter { Value = 0 };
+            _counterController.counter = new Counter (0);
 
             // Arrange
-            var expectedData = new Counter { Value = 1 };
-            var expectedData1 = new Counter { Value = 2 };
+            var expectedData = new Counter (1);
+            var expectedData1 = new Counter (2);
 
             // Act
             // @TODO Replace PlaceholderFunction with your own function name that will increment the counter
-            var result = _counterController.PlaceholderFunction().Result as OkObjectResult;
+            var result = _counterController.Increment();
 
             // Assert
             Assert.IsNotNull(result);
-            var actualData = result.Value as Counter;
+            var actualData = result.Value;
             Assert.IsNotNull(actualData);
-            Assert.That(actualData.Value, Is.EqualTo(expectedData.Value));
+            Assert.That(actualData, Is.EqualTo(expectedData.Value));
 
             // Assert
             // @TODO Replace PlaceholderFunction with your own function name that will increment the counter
-            result = _counterController.PlaceholderFunction().Result as OkObjectResult;
+            result = _counterController.Increment();
             Assert.IsNotNull(result);
-            actualData = result.Value as Counter;
+            actualData = result.Value;
             Assert.IsNotNull(actualData);
-            Assert.That(actualData.Value, Is.EqualTo(expectedData1.Value));
+            Assert.That(actualData, Is.EqualTo(expectedData1.Value));
         }
 
         [Order(4)]
@@ -87,29 +87,29 @@ namespace api_counter.Test
         {
             // Setup
             CounterController _counterController = new CounterController();
-            _counterController.counter = new Counter { Value = 2 };
+            _counterController.counter = new Counter (2);
 
             // Arrange
-            var expectedData = new Counter { Value = 1 };
-            var expectedData1 = new Counter { Value = 0 };
+            var expectedData = new Counter (1);
+            var expectedData1 = new Counter (0);
 
             // Act
             // @TODO Replace PlaceholderFunction with your own function name that will decrement the counter
-            var result = _counterController.PlaceholderFunction().Result as OkObjectResult;
+            var result = _counterController.Decrement();
 
             // Assert
             Assert.IsNotNull(result);
-            var actualData = result.Value as Counter;
+            var actualData = result.Value;
             Assert.IsNotNull(actualData);
-            Assert.That(actualData.Value, Is.EqualTo(expectedData.Value));
+            Assert.That(actualData, Is.EqualTo(expectedData.Value));
 
             // Assert
             // @TODO Replace PlaceholderFunction with your own function name that will decrement the counter
-            result = _counterController.PlaceholderFunction().Result as OkObjectResult;
+            result = _counterController.Decrement();
             Assert.IsNotNull(result);
-            actualData = result.Value as Counter;
+            actualData = result.Value;
             Assert.IsNotNull(actualData);
-            Assert.That(actualData.Value, Is.EqualTo(expectedData1.Value));
+            Assert.That(actualData, Is.EqualTo(expectedData1.Value));
         }
 
         [Order(3)]
@@ -119,29 +119,29 @@ namespace api_counter.Test
         {
             // Setup
             CounterController _counterController = new CounterController();
-            _counterController.counter = new Counter { Name = "Counter", Value = 1 };
+           _counterController.counter = new Counter (1, "Counter");
 
             // Arrange
-            var expectedData = new Counter { Value = 2 };
-            var expectedData1 = new Counter { Value = 4 };
+            var expectedData = new Counter (2);
+            var expectedData1 = new Counter (4);
 
             // Act
             // @TODO Replace PlaceholderFunction with your own function name that will double the counter
-            var result = _counterController.PlaceholderFunction().Result as OkObjectResult;
+            var result = _counterController.Double();
 
             // Assert
             Assert.IsNotNull(result);
-            var actualData = result.Value as Counter;
+            var actualData = result.Value;
             Assert.IsNotNull(actualData);
-            Assert.That(actualData.Value, Is.EqualTo(expectedData.Value));
+            Assert.That(actualData, Is.EqualTo(expectedData.Value));
 
             // Assert
             // @TODO Replace PlaceholderFunction with your own function name that will double the counter
-            result = _counterController.PlaceholderFunction().Result as OkObjectResult;
+            result = _counterController.Double();
             Assert.IsNotNull(result);
-            actualData = result.Value as Counter;
+            actualData = result.Value;
             Assert.IsNotNull(actualData);
-            Assert.That(actualData.Value, Is.EqualTo(expectedData1.Value));
+            Assert.That(actualData, Is.EqualTo(expectedData1.Value));
         }
     }
 }
