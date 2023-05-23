@@ -29,19 +29,19 @@ namespace api_counter.wwwapi.Controllers
         public async Task<IResult> GetAllCounters()
         {
             //change the number returned in the line below to counter list variable
-            return Results.Ok(1);
+            return Results.Ok(counters);
         }
 
         //TODO: 2. write a method to return a single counter based on the id being passed in.  complete method below
         [HttpGet]
         [Route("{id}")]
-        public async Task<IResult> GetACounter()
+        public async Task<IResult> GetACounter(int id)
         {
             //write code here replacing the string.Empty
-            var counter = string.Empty;
+            var counter = counters.Where(x => x.Id == id).FirstOrDefault();
 
             //leave return line the same
-            return counter != null ? Results.Ok(counters) : Results.NotFound();
+            return counter != null ? Results.Ok(counter) : Results.NotFound();
         }
 
         //TODO: 3.  write another controlller method that returns counters that have a value greater than the {number} passed in.
