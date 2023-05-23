@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api-counter.Main", "api-counter.Main\api-counter.Main.csproj", "{B72B6198-8090-4C72-A9EC-7673DC94FC42}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api-counter.wwwapi", "api-counter.wwwapi\api-counter.wwwapi.csproj", "{6F0A12DF-25AB-4334-9302-5889906DD315}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api-counter.wwwapi", "api-counter.wwwapi\api-counter.wwwapi.csproj", "{6F0A12DF-25AB-4334-9302-5889906DD315}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B72B6198-8090-4C72-A9EC-7673DC94FC42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B72B6198-8090-4C72-A9EC-7673DC94FC42}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B72B6198-8090-4C72-A9EC-7673DC94FC42}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B72B6198-8090-4C72-A9EC-7673DC94FC42}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6F0A12DF-25AB-4334-9302-5889906DD315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6F0A12DF-25AB-4334-9302-5889906DD315}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F0A12DF-25AB-4334-9302-5889906DD315}.Release|Any CPU.ActiveCfg = Release|Any CPU
