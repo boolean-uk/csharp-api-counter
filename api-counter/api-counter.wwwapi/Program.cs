@@ -1,4 +1,3 @@
-
 namespace api_counter.wwwapi
 {
     public class Program
