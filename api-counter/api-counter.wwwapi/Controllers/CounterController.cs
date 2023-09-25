@@ -42,7 +42,7 @@ namespace api_counter.wwwapi.Controllers
         {
             //write code here replacing the string.Empty
             var counter = _counters.Where(c => c.Id == id).FirstOrDefault();
-           
+
             //leave return line the same
             return counter != null ? Results.Ok(counter) : Results.NotFound();
         }
@@ -57,12 +57,21 @@ namespace api_counter.wwwapi.Controllers
         {
             var results = _counters.Where(c => c.Value >= number).ToList();
 
-            return results.Count>0 ? Results.Ok(results) : Results.NotFound();
+            return results.Count > 0 ? Results.Ok(results) : Results.NotFound();
         }
 
         ////TODO:4. write another controlller method that returns counters that have a value less than the {number} passed in.
 
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Route("lessthan{number}")]
+        public async Task<IResult> GetLessThan(int number)
+        {
+            var results = _counters.Where(c => c.Value < number).ToList();
 
+            return results.Count > 0 ? Results.Ok(results) : Results.NotFound();
+        }
 
 
 
@@ -71,10 +80,40 @@ namespace api_counter.wwwapi.Controllers
         //e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
         //return the counter you have increased
 
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Route("increasebyone/{id}")]
+        public async Task<IResult> IncreaseValue(int id)
+        {
+            var counter = _counters.Where(car => car.Id == id).FirstOrDefault();
+            if (counter != null)
+            {
+                counter.Value++;
+                return Results.Ok(counter);
+            }
+            return Results.NotFound();
+        }
+
 
         //Extension #2
         //TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be decreased from 5 to 4
         //return the counter you have decreased
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Route("decreasebyone/{id}")]
+        public async Task<IResult> DecreaseValue(int id)
+        {
+            var counter = _counters.Where(car => car.Id == id).FirstOrDefault();
+            if (counter != null)
+            {
+                counter.Value--;
+                return Results.Ok(counter);
+            }
+            return Results.NotFound();
+        }
     }
 }
