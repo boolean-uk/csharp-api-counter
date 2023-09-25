@@ -5,6 +5,11 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api-counter.wwwapi", "api-counter.wwwapi\api-counter.wwwapi.csproj", "{6F0A12DF-25AB-4334-9302-5889906DD315}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{46CAA31B-A9A8-48D1-B7D3-DF1BABFA826D}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
