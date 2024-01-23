@@ -29,18 +29,19 @@ namespace api_counter.wwwapi.Controllers
         [Route("")]
         public async Task<IResult> GetAllCounters()
         {
-            //change the number returned in the line below to counter list variable
-            return TypedResults.Ok(1);
+            List<Counter> allCounters = counters;
+            return TypedResults.Ok(allCounters);
         }
 
         //TODO: 2. write a method to return a single counter based on the id being passed in.  complete method below
         [HttpGet]
         [Route("{id}")]
-        public async Task<IResult> GetACounter()
+        public async Task<IResult> GetACounter(int id)
         {
+            List<Counter> allCounters = counters;
             //write code here replacing the string.Empty
-            var counter = string.Empty;
-           
+            var counter = allCounters.Find(x => x.Id == id);
+
             //leave return line the same
             return counter != null ? TypedResults.Ok(counter) : TypedResults.NotFound();
         }
@@ -48,14 +49,39 @@ namespace api_counter.wwwapi.Controllers
         //TODO: 3.  write another controlller method that returns counters that have a value greater than the {number} passed in.        
         [HttpGet]
         [Route("greaterthan/{number}")]
-        public async Task<IResult> Get()
+        public async Task<IResult> GetLowerThan(int number)
         {
-            return TypedResults.Ok();
+            List<Counter> allCounters = counters;
+            List<Counter> allCountersOverNumber = new List<Counter>();
+
+            foreach (var item in allCounters) { 
+                if (item.Value > number)
+                {
+                    allCountersOverNumber.Add(item);
+                }
+            }
+
+            return TypedResults.Ok(allCountersOverNumber);
         }
 
         ////TODO:4. write another controlller method that returns counters that have a value less than the {number} passed in.
-      
-      
+
+        [HttpGet]
+        [Route("lesserthan/{number}")]
+        public async Task<IResult> GetGreaterThan(int number)
+        {
+            List<Counter> allCounters = counters;
+            List<Counter> allCountersGreaterThanNumber = new List<Counter>();
+
+            foreach (var item in allCounters) { 
+                if (item.Value < number) { 
+                allCountersGreaterThanNumber.Add(item);
+                }
+            }
+
+
+            return TypedResults.Ok(allCountersGreaterThanNumber);
+        }
 
 
 
@@ -63,11 +89,48 @@ namespace api_counter.wwwapi.Controllers
         //TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
         //return the counter you have increased
-        
+        [HttpPut]
+        [Route("increasevalue/{id}")]
+        public async Task<IResult> IncreaseValue(int id)
+        {
+            List<Counter> allcounters = counters;
+            var tmp = allcounters.Find(x => x.Id == id);
+
+            if (tmp != null)
+            {
+                tmp.Value++;
+            } else
+            {
+                return Results.BadRequest($"id: {id} can not be found");
+            }
+
+            return TypedResults.Ok(tmp);
+        }
 
         //Extension #2
         //TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be decreased from 5 to 4
         //return the counter you have decreased
+
+        [HttpPut]
+        [Route("decreasevalue/{id}")]
+        public async Task<IResult> DecreaseValue(int id)
+        {
+            List<Counter> allcounters = counters;
+            var tmp = allcounters.Find(x => x.Id == id);
+
+            if (tmp != null)
+            {
+                tmp.Value--;
+            }
+            else
+            {
+                return Results.BadRequest($"id: {id} can not be found");
+            }
+
+
+            return TypedResults.Ok(tmp);
+
+        }
     }
 }
