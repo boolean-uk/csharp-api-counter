@@ -2,6 +2,7 @@ using api_counter.wwwapi8;
 using api_counter.wwwapi8.Helpers;
 using api_counter.wwwapi8.Models;
 using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -110,4 +111,3 @@ counters.MapPut("decrement/{id}", (int id) =>
 });
 
 app.Run();
-
