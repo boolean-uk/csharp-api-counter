@@ -72,11 +72,37 @@ namespace api_counter.wwwapi.Controllers
         //TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
         //return the counter you have increased
+        [HttpGet]
+        [Route("increment/{number}")]
+        public async Task<IResult> IncrementCounter(int id)
+        {
+            var counter = counters.FirstOrDefault(c => c.Id == id);
+            if(counter == null)
+            {
+                return TypedResults.NotFound($"Counter with Id: {id} was not found");
+            }
+            counter.Value++; //takes the value property from the given counterId
+            return TypedResults.Ok(counter);
+        }
+
 
 
         //Extension #2
         //TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be decreased from 5 to 4
         //return the counter you have decreased
+
+        [HttpGet]
+        [Route("decrement/{number}")]
+        public async Task<IResult> DecrementCounter(int id)
+        {
+            var counter = counters.FirstOrDefault(c => c.Id == id);
+            if (counter == null)
+            {
+                return TypedResults.NotFound($"Counter with Id: {id} was not found");
+            }
+            counter.Value--; //takes the value property from the given counterId
+            return TypedResults.Ok(counter);
+        }
     }
 }
