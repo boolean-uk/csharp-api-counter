@@ -24,7 +24,7 @@ app.UseHttpsRedirection();
 // Calling for the Helper: Initializer
 CounterHelper.Initialize();
 
-
+var counters = app.MapGroup("/counters");
 //TODO: 1. write a method that returns all counters in the counters list.  use method below as a starting point
 // Endpoint 1: "GetAllCounters
 app.MapGet("GetAllCounters", () =>
@@ -42,7 +42,7 @@ app.MapGet("GetACounter/{id}", (int id) =>
 });
 
 //TODO: 3.  write another controlller method that returns counters that have a value greater than the {number} passed in.        
-app.MapGet("greaterthan/{number}", (int number) =>
+counters.MapGet("/greaterthan/{number}", (int number) =>
 {
     var counters = CounterHelper.Counters.Where(counter => counter.Value > number).ToList();
     return counters != null ? TypedResults.Ok(counters) : Results.NotFound();
@@ -73,9 +73,6 @@ app.MapPost("Increase by 1", (int id) => {
     return Results.NotFound($"Counter with Id {id} not found");
 });
 
-
-
-
 //Extension #2
 //TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.
 //e.g.  with an Id=1  the Books counter Value should be decreased from 5 to 4
@@ -105,29 +102,5 @@ app.MapPost("Decrease by 1", (int id) => {
 
 
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
 
-app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

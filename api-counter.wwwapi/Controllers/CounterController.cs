@@ -9,6 +9,7 @@ namespace api_counter.wwwapi.Controllers
 
     [Route("[controller]")]
     [ApiController]
+    [Route("counters")]
     public class CounterController : ControllerBase
     {
         // KK: This is the same as in 8 -> static variable to get counters objects.
