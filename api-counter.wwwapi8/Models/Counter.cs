@@ -1,4 +1,4 @@
-﻿namespace api_counter.wwwapi.Models
+﻿namespace api_counter.wwwapi8.Models
 {
     public class Counter
     {
