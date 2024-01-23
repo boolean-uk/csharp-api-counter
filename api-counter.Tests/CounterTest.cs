@@ -1,9 +1,5 @@
 ﻿using api_counter.wwwapi;
-using api_counter.wwwapi.Controllers;
 using api_counter.wwwapi.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 
