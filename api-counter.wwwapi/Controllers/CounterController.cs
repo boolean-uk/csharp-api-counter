@@ -69,7 +69,7 @@ namespace api_counter.wwwapi.Controllers
         //e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
         //return the counter you have increased
 
-        [HttpGet]
+        [HttpPut]
         [Route("Increment/{id}")]
         public async Task<IResult> Increment(int id)
         {
@@ -84,7 +84,7 @@ namespace api_counter.wwwapi.Controllers
         //TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be decreased from 5 to 4
         //return the counter you have decreased
-        [HttpGet]
+        [HttpPut]
         [Route("Decrement/{id}")]
         public async Task<IResult> Decrement(int id)
         {
