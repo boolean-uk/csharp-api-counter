@@ -90,7 +90,7 @@ counters.MapGet("/lesserthan/{number}", (int number) =>
 //TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
 //e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
 //return the counter you have increased
-counters.MapGet("/incriment/{id}", (int id) =>
+counters.MapGet("/increment/{id}", (int id) =>
 {
     Counter? counter = CounterHelper.Counters.Find(x => x.Id == id);
 
