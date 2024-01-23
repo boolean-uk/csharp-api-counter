@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api_counter.wwwapi.Controllers
 {
+    [Route("[controller]")]
     [ApiController]
-    [Route("counters")]
     public class CounterController : ControllerBase
     {
         public static List<Counter> counters = new List<Counter>();
@@ -26,36 +26,42 @@ namespace api_counter.wwwapi.Controllers
 
         //TODO: 1. write a method that returns all counters in the counters list.  use method below as a starting point
         [HttpGet]
-        [Route("")]
         public async Task<IResult> GetAllCounters()
         {
             //change the number returned in the line below to counter list variable
-            return TypedResults.Ok(1);
+            return Results.Ok(counters);
         }
 
         //TODO: 2. write a method to return a single counter based on the id being passed in.  complete method below
         [HttpGet]
         [Route("{id}")]
-        public async Task<IResult> GetACounter()
+        public async Task<IResult> GetACounter(int id)
         {
             //write code here replacing the string.Empty
-            var counter = string.Empty;
-           
+            var counter = counters.FirstOrDefault(c => c.Id == id);
+
             //leave return line the same
-            return counter != null ? TypedResults.Ok(counter) : TypedResults.NotFound();
+            return counter != null ? Results.Ok(counter) : Results.NotFound();
         }
 
-        //TODO: 3.  write another controlller method that returns counters that have a value greater than the {number} passed in.        
+        //TODO: 3.  write another controlller method that returns counters that have a value greater than the {number} passed in.
+        // use method below as starting point
         [HttpGet]
         [Route("greaterthan/{number}")]
-        public async Task<IResult> Get()
+        public async Task<IResult> GetGreaterThan(int number)
         {
-            return TypedResults.Ok();
+            var greaterCounters = counters.Where(c => c.Value > number);
+            return Results.Ok(greaterCounters);
         }
 
         ////TODO:4. write another controlller method that returns counters that have a value less than the {number} passed in.
-      
-      
+        [HttpGet]
+        [Route("lesserthan/{number}")]
+        public async Task<IResult> GetLesserThan(int number)
+        {
+            var lesserCounters = counters.Where(c => c.Value < number);
+            return Results.Ok(lesserCounters);
+        }
 
 
 
@@ -63,11 +69,42 @@ namespace api_counter.wwwapi.Controllers
         //TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
         //return the counter you have increased
-        
+        [HttpPut]
+        [Route("increment/{id}")]
+        public async Task<IResult> IncrementCounter(int id)
+        {
+            try
+            {
+                var counter = counters.FirstOrDefault(c => c.Id == id)
+                    ?? throw new Exception($"No counter with id: '{id}'");
+                counter.Value++;
+                return Results.Ok(counter);
+            }
+            catch (Exception ex)
+            {
+                return Results.NotFound(ex.Message);
+            }
+        }
 
         //Extension #2
         //TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be decreased from 5 to 4
         //return the counter you have decreased
+        [HttpPut]
+        [Route("decrement/{id}")]
+        public async Task<IResult> DecrementCounter(int id)
+        {
+            try
+            {
+                var counter = counters.FirstOrDefault(c => c.Id == id)
+                    ?? throw new Exception($"No counter with id: '{id}'");
+                counter.Value--;
+                return Results.Ok(counter);
+            }
+            catch (Exception ex)
+            {
+                return Results.NotFound(ex.Message);
+            }
+        }
     }
 }

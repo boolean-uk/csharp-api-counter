@@ -1,6 +1,8 @@
 ﻿
 
 using api_counter.wwwapi8.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace api_counter.wwwapi8.Helpers
 {
@@ -19,6 +21,11 @@ namespace api_counter.wwwapi8.Helpers
             }
         }
         public static List<Counter> Counters { get; set; } = new List<Counter>();
+        public static Counter GetById(int id)
+        {
+            return Counters.FirstOrDefault(c => c.Id == id)
+                ?? throw new Exception($"No counter with id: '{id}'");
+        }
 
     }
 }
