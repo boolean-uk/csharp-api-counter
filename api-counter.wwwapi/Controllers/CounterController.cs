@@ -39,7 +39,7 @@ namespace api_counter.wwwapi.Controllers
         {
             //write code here replacing the string.Empty
             var counter = counters.FirstOrDefault(c => c.Id == id);
-           
+
             //leave return line the same
             return counter != null ? Results.Ok(counter) : Results.NotFound();
         }
@@ -79,7 +79,8 @@ namespace api_counter.wwwapi.Controllers
                     ?? throw new Exception($"No counter with id: '{id}'");
                 counter.Value++;
                 return Results.Ok(counter);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return Results.NotFound(ex.Message);
             }
