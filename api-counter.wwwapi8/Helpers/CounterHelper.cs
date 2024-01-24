@@ -6,7 +6,9 @@ namespace api_counter.wwwapi8.Helpers
 {
     public static class CounterHelper
     {
+       
 
+        
         public static void Initialize()
         {
             if (Counters.Count == 0)
