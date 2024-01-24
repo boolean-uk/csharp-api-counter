@@ -40,7 +40,11 @@ namespace api_counter.wwwapi.Controllers
         {
             //write code here replacing the string.Empty
             var counter = counters.FirstOrDefault(counter => counter.Id == id);
-           
+            if (counter == null)
+            {
+                return Results.NotFound($"Id: {id} not found!");
+            }
+
             //leave return line the same
             return counter != null ? TypedResults.Ok(counter) : TypedResults.NotFound();
         }
@@ -75,6 +79,10 @@ namespace api_counter.wwwapi.Controllers
         public async Task<IResult> IncrementByOne(int id)
         {
             var counter = counters.FirstOrDefault(counter => counter.Id == id);
+            if (counter == null)
+            {
+                return Results.NotFound($"Id: {id} not found!");
+            }
             counter.Value++;
             return TypedResults.Ok(counter);
 
@@ -91,6 +99,10 @@ namespace api_counter.wwwapi.Controllers
         public async Task<IResult> DecrementByOne(int id)
         {
             var counter = counters.FirstOrDefault(counter => counter.Id == id);
+            if (counter == null)
+            {
+                return Results.NotFound($"Id: {id} not found!");
+            } 
             counter.Value--;
             return TypedResults.Ok(counter);
 
