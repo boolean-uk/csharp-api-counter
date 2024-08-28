@@ -20,5 +20,14 @@ namespace api_counter.wwwapi8.Helpers
         }
         public static List<Counter> Counters { get; set; } = new List<Counter>();
 
-    }
+        public static Counter? GetACounterById(int id)
+        { 
+            return Counters.FirstOrDefault(c => c.Id == id); 
+        }
+
+        public static List<Counter>? GetCounterValueGreaterThan(int number)
+        {
+             return Counters.FindAll(x => x.Value > number);
+        }
+     }
 }
