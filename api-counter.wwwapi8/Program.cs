@@ -52,6 +52,10 @@ counters.MapGet("/greaterthan/{number}", (int number) =>
 //e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
 //return the counter you have increased
 
+counters.MapGet("/decrement/{id}", (int id) =>
+{
+    return TypedResults.Ok(id);
+});
 
 //Extension #2
 //TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.
