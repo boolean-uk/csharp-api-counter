@@ -58,7 +58,7 @@ namespace api_counter.wwwapi.Controllers
         ////TODO:4. write another controlller method that returns counters that have a value less than the {number} passed in.
 
         [HttpGet]
-        [Route("greaterthan/{number}")]
+        [Route("lessthan/{number}")]
 
         public async Task<IResult> GetValueLesserThan(int number)
         {
@@ -96,6 +96,19 @@ namespace api_counter.wwwapi.Controllers
 
 
 
+        }
+        [HttpGet]
+        [Route("decrements/{Id}")]
+        
+        public async Task<IResult> decrementValue(int Id)
+        {
+            var counter = counters.FirstOrDefault(counter => counter.Id == Id);
+
+            if (counter != null) {
+                counter.Value--;
+                return TypedResults.Ok(counter);
+            }
+            return TypedResults.NotFound();
         }
     }
 
