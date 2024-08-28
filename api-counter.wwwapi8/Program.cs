@@ -93,7 +93,7 @@ async Task<IResult> PatchDecreaseValue(int id)
         return TypedResults.NotFound();
     }
 
-    counterToDecrease.Value += 1;
+    counterToDecrease.Value -= 1;
     return TypedResults.Ok(counterToDecrease.Value);
 }
 
