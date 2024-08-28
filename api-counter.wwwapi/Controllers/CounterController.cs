@@ -57,7 +57,7 @@ namespace api_counter.wwwapi.Controllers
         ////TODO:4. write another controlller method that returns counters that have a value less than the {number} passed in.
         [HttpGet]
         [Route("lessthan/{number}")]
-        public async Task<IResult> Get2(int number)
+        public async Task<IResult> LessThan(int number)
         {
             var counter = counters.Where(x => x.Value < number);
             return TypedResults.Ok(counter);
@@ -70,11 +70,27 @@ namespace api_counter.wwwapi.Controllers
         //TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
         //return the counter you have increased
+        [HttpGet]
+        [Route("increment/{id}")]
+        public async Task<IResult> IncrementValue(int id)
+        {
+            var counter = counters.First(x => x.Id == id);
+            counter.Value++;
+            return TypedResults.Ok(counter);
+        }
 
 
         //Extension #2
         //TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be decreased from 5 to 4
         //return the counter you have decreased
+        [HttpGet]
+        [Route("decrement/{id}")]
+        public async Task<IResult> DecrementValue(int id)
+        {
+            var counter = counters.First(x => x.Id == id);
+            counter.Value--;
+            return TypedResults.Ok(counter);
+        }
     }
 }
