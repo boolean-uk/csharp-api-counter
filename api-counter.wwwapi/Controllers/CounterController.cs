@@ -52,7 +52,7 @@ namespace api_counter.wwwapi.Controllers
         [Route("greaterthan/{number}")]
         public async Task<IResult> Get(int number)
         {
-            var counter = counters.Where(counters => counters.Id > number).ToList();
+            var counter = counters.Where(counters => counters.Value > number).ToList();
             return TypedResults.Ok(counter);
         }
 
@@ -62,7 +62,7 @@ namespace api_counter.wwwapi.Controllers
         [Route("lessthan/{number}")]
         public async Task<IResult> GetLessThan(int number)
         {
-            var counter = counters.Where(counter => counter.Id < number).ToList();
+            var counter = counters.Where(counter => counter.Value < number).ToList();
             return TypedResults.Ok(counter);
         }
 
