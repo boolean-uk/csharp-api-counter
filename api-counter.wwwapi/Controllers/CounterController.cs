@@ -40,7 +40,7 @@ namespace api_counter.wwwapi.Controllers
         public async Task<IResult> GetACounter(int id)
         {
             //write code here replacing the string.Empty
-            var counter = counters.Where(x => x.Id == id);
+            var counter = counters.FirstOrDefault(x => x.Id == id);
            
             //leave return line the same
             return counter != null ? TypedResults.Ok(counter) : TypedResults.NotFound();
