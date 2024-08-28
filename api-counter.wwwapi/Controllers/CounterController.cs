@@ -30,16 +30,16 @@ namespace api_counter.wwwapi.Controllers
         public async Task<IResult> GetAllCounters()
         {
             //change the number returned in the line below to counter list variable
-            return TypedResults.Ok(1);
+            return TypedResults.Ok(counters);
         }
 
         //TODO: 2. write a method to return a single counter based on the id being passed in.  complete method below
         [HttpGet]
         [Route("{id}")]
-        public async Task<IResult> GetACounter()
+        public async Task<IResult> GetACounter(int id)
         {
             //write code here replacing the string.Empty
-            var counter = string.Empty;
+            var counter = counters.FirstOrDefault(x => x.Id == id);
            
             //leave return line the same
             return counter != null ? TypedResults.Ok(counter) : TypedResults.NotFound();
@@ -48,14 +48,21 @@ namespace api_counter.wwwapi.Controllers
         //TODO: 3.  write another controlller method that returns counters that have a value greater than the {number} passed in.        
         [HttpGet]
         [Route("greaterthan/{number}")]
-        public async Task<IResult> Get()
+        public async Task<IResult> GetValuesGreaterThan(int number)
         {
-            return TypedResults.Ok();
+            var results = counters.FindAll(x => x.Value > number);
+            return results.Count > 0? TypedResults.Ok(results) : TypedResults.BadRequest();
         }
 
         ////TODO:4. write another controlller method that returns counters that have a value less than the {number} passed in.
-      
-      
+        [HttpGet]
+        [Route("smallerthan/{number}")]
+        public async Task<IResult> GetValuesSmallerThan(int number)
+        {
+            var results = counters.FindAll(x => x.Value < number);
+            return results.Count > 0 ? TypedResults.Ok(results) : TypedResults.BadRequest();
+        }
+
 
 
 
@@ -63,8 +70,22 @@ namespace api_counter.wwwapi.Controllers
         //TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
         //return the counter you have increased
-        
 
+        [HttpGet]
+        [Route("decrement/{id}")]
+        public async Task<IResult> Decrement(int id)
+        {
+            var result = counters.FirstOrDefault(x => x.Id == id);
+            if (result == null)
+            {
+                return TypedResults.NotFound();
+            }
+            result.Value--;
+
+            return TypedResults.Ok(counters);
+        }
+
+        
         //Extension #2
         //TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be decreased from 5 to 4
