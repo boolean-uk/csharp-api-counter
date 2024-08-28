@@ -24,39 +24,52 @@ app.UseHttpsRedirection();
 CounterHelper.Initialize();
 
 var counters = app.MapGroup("/counters");
-//TODO: 1. write a method that returns all counters in the counters list.  use method below as a starting point
-counters.MapGet("/", () =>
-{
-    return TypedResults.Ok();
-});
+// 1. write a method that returns all counters in the counters list.  use method below as a starting point
+counters.MapGet("/", IResult () => TypedResults.Ok(CounterHelper.Counters));
 
-
-//TODO: 2. write a method to return a single counter based on the id being passed in.  complete method below
-counters.MapGet("/{id}", (int id) =>
+// 2. write a method to return a single counter based on the id being passed in.  complete method below
+counters.MapGet("/{id}", IResult (int id) =>
 {    
-    return TypedResults.Ok(id);
+    var c = CounterHelper.Counters.FirstOrDefault(c => c.Id == id);
+    return c is not null ? TypedResults.Ok(c) : TypedResults.NotFound();
 });
 
-//TODO: 3.  write another controlller method that returns counters that have a value greater than the {number} passed in.        
-counters.MapGet("/greaterthan/{number}", (int number) =>
+// 3.  write another controlller method that returns counters that have a value greater than the {number} passed in.        
+counters.MapGet("/greaterthan/{number}", IResult (int number) =>
 {
-    return TypedResults.Ok(number);
+    var c = CounterHelper.Counters.Where(c => c.Value > number);
+    return TypedResults.Ok(c);
 });
 
-////TODO:4. write another controlller method that returns counters that have a value less than the {number} passed in.
-
-
+// 4. write another controlller method that returns counters that have a value less than the {number} passed in.
+counters.MapGet("/lessthan/{number}", IResult (int number) =>
+{
+    var c = CounterHelper.Counters.Where(c => c.Value < number);
+    return TypedResults.Ok(c);
+});
 
 //Extension #1
-//TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
+// 1. Write a controller method that increments the Value property of a counter of any given Id.
 //e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
 //return the counter you have increased
-
+counters.MapGet("/inc/{id}", IResult (int id) =>
+{
+    var counter = CounterHelper.Counters.FirstOrDefault(c => c.Id.Equals(id));
+    if (counter is not null) counter.Value++;
+    return counter is not null ? TypedResults.Ok(counter) : TypedResults.NotFound();
+});
 
 //Extension #2
-//TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.
+// 2. Write a controller method that decrements the Value property of a counter of any given Id.
 //e.g.  with an Id=1  the Books counter Value should be decreased from 5 to 4
 //return the counter you have decreased
+
+counters.MapGet("/dec/{id}", IResult (int id) =>
+{
+    var counter = CounterHelper.Counters.FirstOrDefault(c => c.Id.Equals(id));
+    if (counter is not null) counter.Value--;
+    return counter is not null ? TypedResults.Ok(counter) : TypedResults.NotFound();
+});
 
 app.Run();
 
