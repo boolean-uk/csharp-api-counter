@@ -27,7 +27,7 @@ var counters = app.MapGroup("/counters");
 //TODO: 1. write a method that returns all counters in the counters list.  use method below as a starting point
 counters.MapGet("/", () =>
 {
-    return TypedResults.Ok();
+    return TypedResults.Ok(CounterHelper.Counters);
 });
 
 
