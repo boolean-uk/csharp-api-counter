@@ -18,6 +18,36 @@ namespace api_counter.wwwapi8.Helpers
                 Counters.Add(new Counter() { Id = 5, Name = "Notepads", Value = 7 });
             }
         }
+
+        public static Counter? GetCounterById(int id)
+        {
+            return Counters.FirstOrDefault(x => x.Id == id);
+        }
+
+        public static List<Counter> GetCounterValueGreatherThan(int number)
+        {
+            return Counters.FindAll(x => x.Id > number);
+        }
+
+        public static List<Counter> GetCounterValueSmallerThan(int number)
+        {
+            return Counters.FindAll(x => x.Id < number);
+        }
+
+        public static Counter? Decrement(int id)
+        {
+            var counter = Counters.FirstOrDefault(x => x.Id == id);
+            counter.Value--;
+            return counter;
+        }
+
+        public static Counter? Increment(int id)
+        {
+            var counter = Counters.FirstOrDefault(x => x.Id == id);
+            counter.Value++;
+            return counter;
+        }
+
         public static List<Counter> Counters { get; set; } = new List<Counter>();
 
     }
