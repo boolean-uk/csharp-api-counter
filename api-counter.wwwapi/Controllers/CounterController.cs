@@ -30,16 +30,16 @@ namespace api_counter.wwwapi.Controllers
         public async Task<IResult> GetAllCounters()
         {
             //change the number returned in the line below to counter list variable
-            return TypedResults.Ok(1);
+            return TypedResults.Ok(counters);
         }
 
         //TODO: 2. write a method to return a single counter based on the id being passed in.  complete method below
         [HttpGet]
         [Route("{id}")]
-        public async Task<IResult> GetACounter()
+        public async Task<IResult> GetACounter(int id)
         {
             //write code here replacing the string.Empty
-            var counter = string.Empty;
+            var counter = counters.FirstOrDefault(c => c.Id == id);
            
             //leave return line the same
             return counter != null ? TypedResults.Ok(counter) : TypedResults.NotFound();
@@ -48,13 +48,22 @@ namespace api_counter.wwwapi.Controllers
         //TODO: 3.  write another controlller method that returns counters that have a value greater than the {number} passed in.        
         [HttpGet]
         [Route("greaterthan/{number}")]
-        public async Task<IResult> Get()
+        public async Task<IResult> Get(int number)
         {
-            return TypedResults.Ok();
+
+            var larger = counters.Where(n => n.Value > number);
+            return larger != null ? TypedResults.Ok(larger) : TypedResults.NotFound();
         }
 
         ////TODO:4. write another controlller method that returns counters that have a value less than the {number} passed in.
-      
+
+        [HttpGet]
+        [Route("lessthan/{number}")]
+        public async Task<IResult> GetLess(int number)
+        {
+            var smaller = counters.Where(n => n.Value < number);
+            return smaller != null ? TypedResults.Ok(smaller) : TypedResults.NotFound();
+        }
       
 
 
