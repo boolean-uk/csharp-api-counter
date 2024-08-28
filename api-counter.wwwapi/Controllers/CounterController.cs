@@ -71,7 +71,7 @@ namespace api_counter.wwwapi.Controllers
         //return the counter you have increased
         [HttpGet]
         [Route("increment/{id}")]
-        public async Task<IResult> IncrementValueOf(int id, int value)
+        public async Task<IResult> IncrementValueOf(int id)
         {
             var counter = counters.FirstOrDefault(counter => counter.Id == id);
 
@@ -87,7 +87,7 @@ namespace api_counter.wwwapi.Controllers
         //return the counter you have decreased
         [HttpGet]
         [Route("decrement/{id}")]
-        public async Task<IResult> DecerementValueOf(int id, int value)
+        public async Task<IResult> DecerementValueOf(int id)
         {
             var counter = counters.FirstOrDefault(counter => counter.Id == id);
 
