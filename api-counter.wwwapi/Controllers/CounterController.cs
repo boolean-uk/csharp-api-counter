@@ -40,7 +40,7 @@ namespace api_counter.wwwapi.Controllers
         public async Task<IResult> GetACounter(int id)
         {
             //write code here replacing the string.Empty
-            var counter = counters.Select(x => x.Id == id);
+            var counter = counters.Where(x => x.Id == id);
            
             //leave return line the same
             return counter != null ? TypedResults.Ok(counter) : TypedResults.NotFound();
@@ -77,7 +77,7 @@ namespace api_counter.wwwapi.Controllers
         [Route("increment/{id}")]
         public async Task<IResult> IncrementValue(int id)
         {
-            var counter = counters.Where(x => x.Id == id).Select(x => x.Id +=1);
+            var counter = counters.Where(x => x.Id == id).Select(x => x.Value +=1);
             
 
             return TypedResults.Ok(counter);
@@ -92,7 +92,7 @@ namespace api_counter.wwwapi.Controllers
         [Route("decrement/{id}")]
         public async Task<IResult> DecrementValue(int id)
         {
-            var counter = counters.Where(x => x.Id == id).Select(x => x.Id -= 1);
+            var counter = counters.Where(x => x.Id == id).Select(x => x.Value -= 1);
 
 
             return TypedResults.Ok(counter);
