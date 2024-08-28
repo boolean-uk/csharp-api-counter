@@ -99,5 +99,34 @@ namespace api_counter.wwwapi.Controllers
             }
             return TypedResults.Ok(counter);
         }
+
+        [HttpPost]
+        [Route("create/")]
+        public async Task<IResult> Create(string name, int value)
+        {
+            counters.Add(new Counter() { Id=counters.Count()+1, Name=name, Value=value });
+            return TypedResults.Ok(counters.Find(x => x.Id == counters.Count()+1));
+        }
+
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public async Task<IResult> Delete(int id)
+        {
+            return TypedResults.Ok(counters.Remove(counters.Find(x => x.Id == id)));
+        }
+
+        [HttpGet]
+        [Route("sortDes/")]
+        public async Task<IResult> SortListDes()
+        {
+            return TypedResults.Ok(counters.OrderByDescending(x => x.Value));
+        }
+
+        [HttpGet]
+        [Route("sortAsc/")]
+        public async Task<IResult> SortListAsc()
+        {
+            return TypedResults.Ok(counters.OrderBy(x => x.Value));
+        }
     }
 }
