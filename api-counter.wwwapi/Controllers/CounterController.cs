@@ -51,7 +51,7 @@ namespace api_counter.wwwapi.Controllers
         [Route("greaterthan/{number}")]
         public async Task<IResult> GetGreater(int number)
         {
-            var result = counters.FindAll(counter => counter.Id > number);
+            var result = counters.FindAll(counter => counter.Value > number);
 
             return result != null ? TypedResults.Ok(result) : TypedResults.NotFound();
         }
@@ -61,7 +61,7 @@ namespace api_counter.wwwapi.Controllers
         [Route("lessthan/{number}")]
         public async Task<IResult> GetLess(int number)
         {
-            var result = counters.FindAll(counter => counter.Id < number);
+            var result = counters.FindAll(counter => counter.Value < number);
 
             return result != null ? TypedResults.Ok(result) : TypedResults.NotFound();
         }
@@ -77,7 +77,7 @@ namespace api_counter.wwwapi.Controllers
             var counter = counters.Find(counter => counter.Id == id);
 
             if (counter != null)
-                counter.Id++;
+                counter.Value++;
 
 
             return counter != null ? TypedResults.Ok(counter) : TypedResults.NotFound();
@@ -94,7 +94,7 @@ namespace api_counter.wwwapi.Controllers
             var counter = counters.Find(counter => counter.Id == id);
 
             if (counter != null)
-                counter.Id--;
+                counter.Value--;
 
 
             return counter != null ? TypedResults.Ok(counter) : TypedResults.NotFound();

@@ -1,0 +1,5 @@
+﻿@api-counter.wwwapi_HostAddress = https://localhost:7293
+
+GET {{api-counter.wwwapi_HostAddress}}/counters
+
+###
