@@ -1,4 +1,8 @@
+using System.Diagnostics.Eventing.Reader;
+using System.Security.Cryptography.X509Certificates;
+using api_counter.wwwapi9.Counterconfigure;
 using api_counter.wwwapi9.Data;
+using Microsoft.AspNetCore.StaticAssets;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,25 +30,28 @@ CounterHelper.Initialize();
 
 var counters = app.MapGroup("/counters");
 //TODO: 1. write a method that returns all counters in the counters list.  use method below as a starting point
-counters.MapGet("/", () =>
+
+counters.MapGet("/", () => 
+
 {
-    return TypedResults.Ok();
+    return TypedResults.Ok(CounterHelper.Counters);
 });
 
 
-//TODO: 2. write a method to return a single counter based on the id being passed in.  complete method below
-counters.MapGet("/{id}", (int id) =>
-{
-    return TypedResults.Ok(id);
-});
+
+//TODO: 2.write a method to return a single counter based on the id being passed in.  complete method below
+counters.MapGet("/{id}", result);
+
+
+
 
 //TODO: 3.  write another method that returns counters that have a value greater than the {number} passed in.        
-counters.MapGet("/greaterthan/{number}", (int number) =>
-{
-    return TypedResults.Ok(number);
-});
+counters.MapGet("/greaterthan/{number}", greater);
 
 ////TODO:4. write another method that returns counters that have a value less than the {number} passed in.
+
+counters.MapGet("/lesserthan/{number}", lower);
+
 
 //Extension #1
 //TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
@@ -59,6 +66,32 @@ counters.MapGet("/greaterthan/{number}", (int number) =>
 //Super Optional Extension #1 - Refactor the code!
 // - move the EndPoints into their own class and ensure they are mapped correctly
 // - add a repository layer: interface & concrete class, inject this into the endpoint using the builder.Service
+
+
+
+ static async Task<IResult> result(int id)
+{
+    var result = CounterHelper.getCounter(id);
+
+    return TypedResults.Ok(result);
+
+}
+static async Task<IResult> greater (int number)
+{
+    var result = CounterHelper.GreaterThan(number);
+
+    return TypedResults.Ok(result);
+
+}
+static async Task<IResult> lower(int number)
+{
+    var result = CounterHelper.LowerThan(number);
+
+    return TypedResults.Ok(result);
+
+}
+
+app.Control();
 
 
 app.Run();
