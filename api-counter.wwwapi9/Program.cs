@@ -38,7 +38,7 @@ counters.MapGet("/{id}", (int id) =>
     return TypedResults.Ok(CounterHelper.Counters.Where(x => x.Id == id).First());
 });
 
-//TODO: 3.  write another controlller method that returns counters that have a value greater than the {number} passed in.        
+//TODO: 3.  write another method that returns counters that have a value greater than the {number} passed in.        
 counters.MapGet("/greaterthan/{number}", (int number) =>
 {
     return TypedResults.Ok(CounterHelper.Counters.Where(x => x.Value > number));
@@ -68,7 +68,9 @@ counters.MapPost("/decrement", (int id) =>
     return TypedResults.Ok(--CounterHelper.Counters.Where(x => x.Id == id).First().Value);
 });
 
-//Super Optional Extension #1
-//Refactor the code! include a repository layer (interface & concrete class), inject this into the endpoint.
+//Super Optional Extension #1 - Refactor the code!
+// - move the EndPoints into their own class and ensure they are mapped correctly
+// - add a repository layer: interface & concrete class, inject this into the endpoint using the builder.Service
+
 
 app.Run();
