@@ -47,7 +47,11 @@ counters.MapGet("/greaterthan/{number}", IResult (int number) =>
     return TypedResults.Ok(counterList);
 });
 
-////TODO:4. write another method that returns counters that have a value less than the {number} passed in.
+counters.MapGet("/lessthan/{number}", IResult (int number) =>
+{
+    var counterList = CounterHelper.Counters.FindAll(c => c.Value < number);
+    return TypedResults.Ok(counterList);
+});
 
 //Extension #1
 //TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
