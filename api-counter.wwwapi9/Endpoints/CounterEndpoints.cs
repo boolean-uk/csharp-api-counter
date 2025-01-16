@@ -13,8 +13,8 @@ namespace api_counter.wwwapi9.Endpoints
             counters.MapGet("/{id}", GetCounterById);
             counters.MapGet("/greaterthan/{value}", GetCountersGreaterThan);
             counters.MapGet("/lessthan/{value}", GetCountersLessThan);
-            counters.MapGet("/increment/{id}", IncrementCounterById);
-            counters.MapGet("/decrement/{id}", DecrementCounterById);
+            counters.MapPut("/increment/{id}", IncrementCounterById);
+            counters.MapPut("/decrement/{id}", DecrementCounterById);
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
