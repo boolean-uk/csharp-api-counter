@@ -12,11 +12,11 @@ namespace api_counter.wwwapi9.Endpoints
         {
             //Tested with Scalar, works
             var applicationincrease = app.MapGroup("countersincrease");
-            applicationincrease.MapGet("/{id}", (int id) => GetCounter(id));
+            applicationincrease.MapGet("/{id}", (int id) => IncreasedCounter(id));
             applicationincrease.MapPost("/{id}", (int id) => IncreasedCounter(id));
 
             var applicationdecrease = app.MapGroup("countersdecrease");
-            applicationdecrease.MapGet("/{id}", (int id) => GetCounter(id));
+            applicationdecrease.MapGet("/{id}", (int id) => DecreasedCounter(id));
             applicationdecrease.MapPost("/{id}", (int id) => DecreasedCounter(id));
             
         }
