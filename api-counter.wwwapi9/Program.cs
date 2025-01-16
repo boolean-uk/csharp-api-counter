@@ -1,5 +1,6 @@
 using System.Diagnostics.Metrics;
 using api_counter.wwwapi9.Data;
+using api_counter.wwwapi9.Endpoints;
 using api_counter.wwwapi9.Models;
 using Scalar.AspNetCore;
 
@@ -59,6 +60,8 @@ counters.MapGet("/lowerthan/{number}", (int number) =>
 //TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
 //e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
 //return the counter you have increased
+
+app.CounterConfiguration();
 
 //Extension #2
 //TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.

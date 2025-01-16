@@ -74,5 +74,19 @@ namespace api_counter.wwwapi9.Data
 
             return counters;
         }
+
+        public static Counter GetCounterIncrease(int id)
+        {
+            Counter counter = CounterHelper.GetCounterById(id);
+            counter.Value += 1;
+            return counter;
+        }
+        
+        public static Counter GetCounterDecrease(int id)
+        {
+            Counter counter = CounterHelper.GetCounterById(id);
+            counter.Value -= 1;
+            return counter;
+        }
     }
 }
