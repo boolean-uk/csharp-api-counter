@@ -5,7 +5,7 @@ namespace api_counter.wwwapi9.Data
 {
     public static class CounterHelper
     {
-
+        public static List<Counter> Counters { get; set; } = new List<Counter>();
         public static void Initialize()
         {
             if (Counters.Count == 0)
@@ -17,7 +17,6 @@ namespace api_counter.wwwapi9.Data
                 Counters.Add(new Counter() { Id = 5, Name = "Notepads", Value = 7 });
             }
         }
-        public static List<Counter> Counters { get; set; } = new List<Counter>();
-
+        
     }
 }
