@@ -1,4 +1,5 @@
 using api_counter.wwwapi9.Data;
+using api_counter.wwwapi9.Models;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,33 +29,61 @@ var counters = app.MapGroup("/counters");
 //TODO: 1. write a method that returns all counters in the counters list.  use method below as a starting point
 counters.MapGet("/", () =>
 {
-    return TypedResults.Ok();
+    return TypedResults.Ok(CounterHelper.Counters);
 });
 
 
 //TODO: 2. write a method to return a single counter based on the id being passed in.  complete method below
 counters.MapGet("/{id}", (int id) =>
 {
-    return TypedResults.Ok(id);
+    Counter counterValue = null;
+    foreach (Counter cnt in CounterHelper.Counters)
+        if (cnt.Id == id)
+        {
+            counterValue = cnt;
+            break;
+        }
+
+    return TypedResults.Ok(counterValue);
 });
 
 //TODO: 3.  write another method that returns counters that have a value greater than the {number} passed in.        
 counters.MapGet("/greaterthan/{number}", (int number) =>
 {
-    return TypedResults.Ok(number);
+    return TypedResults.Ok(CounterHelper.Counters.Where(cnt => cnt.Value > number));
 });
 
 ////TODO:4. write another method that returns counters that have a value less than the {number} passed in.
+counters.MapGet("/lessthan/{number}", (int number) =>
+{
+    return TypedResults.Ok(CounterHelper.Counters.Where(cnt => cnt.Value < number));
+});
 
 //Extension #1
 //TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
 //e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
 //return the counter you have increased
+counters.MapGet("/increment/{id}", (int id) =>
+{
+    Counter selectedCounter = CounterHelper.Counters.First(cnt => cnt.Id == id);
+
+    selectedCounter.Value += 1;
+
+    return TypedResults.Ok(selectedCounter);
+});
 
 //Extension #2
 //TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.
 //e.g.  with an Id=1  the Books counter Value should be decreased from 5 to 4
 //return the counter you have decreased
+counters.MapGet("/decrement/{id}", (int id) =>
+{
+    Counter selectedCounter = CounterHelper.Counters.First(cnt => cnt.Id == id);
+
+    selectedCounter.Value -= 1;
+
+    return TypedResults.Ok(selectedCounter);
+});
 
 //Super Optional Extension #1 - Refactor the code!
 // - move the EndPoints into their own class and ensure they are mapped correctly
