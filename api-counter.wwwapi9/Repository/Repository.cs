@@ -21,13 +21,17 @@ namespace api_counter.wwwapi9.Repository
             return CounterHelper.Counters.Where(condition);
         }
 
-        public int IncrementCounter(int id)
+        public Counter IncrementCounter(int id)
         {
-            return ++GetCounterById(id).Value;
+            Counter counter = GetCounterById(id);
+            counter.Value++;
+            return counter;
         }
-        public int DecrementCounter(int id)
+        public Counter DecrementCounter(int id)
         {
-            return --GetCounterById(id).Value;
+            Counter counter = GetCounterById(id);
+            counter.Value--;
+            return counter;
         }
 
         private Counter GetCounterById(int id) 
