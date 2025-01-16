@@ -25,11 +25,9 @@ app.UseHttpsRedirection();
 CounterHelper.Initialize();
 
 var counters = app.MapGroup("/counters");
-//TODO: 1. write a method that returns all counters in the counters list.  use method below as a starting point
 counters.MapGet("/", () => TypedResults.Ok(CounterHelper.Counters));
 
 
-//TODO: 2. write a method to return a single counter based on the id being passed in.  complete method below
 counters.MapGet("/{id}", IResult (int id) =>
 {
     var counter = CounterHelper.Counters.FirstOrDefault(c => c.Id == id);
@@ -43,7 +41,6 @@ counters.MapGet("/{id}", IResult (int id) =>
     return TypedResults.Ok(counter);
 });
 
-//TODO: 3.  write another method that returns counters that have a value greater than the {number} passed in.        
 counters.MapGet("/greaterthan/{number}", IResult (int number) =>
 {
     var counterList = CounterHelper.Counters.FindAll(c => c.Value > number);
