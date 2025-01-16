@@ -12,8 +12,8 @@ namespace api_counter.wwwapi9.Endpoints
 
             counters.MapGet("/", GetCounters);
             counters.MapGet("/{id}", GetCounter);
-            counters.MapGet("/greaterthan/{number}", GetCountersGreaterThan);
-            counters.MapGet("/lessthan/{number}", GetCountersLessThan);
+            counters.MapGet("/greaterthan/{value}", GetCountersGreaterThan);
+            counters.MapGet("/lessthan/{value}", GetCountersLessThan);
             counters.MapGet("/increment/{id}", GetCounterIncrement);
             counters.MapGet("/decrement/{id}", GetCounterDecrement);
         }
