@@ -1,5 +1,7 @@
 ﻿using api_counter.wwwapi9.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Metrics;
+using System.Runtime.CompilerServices;
 
 namespace api_counter.wwwapi9.Data
 {
@@ -18,6 +20,8 @@ namespace api_counter.wwwapi9.Data
             }
         }
         public static List<Counter> Counters { get; set; } = new List<Counter>();
+        
+        
 
     }
 }
