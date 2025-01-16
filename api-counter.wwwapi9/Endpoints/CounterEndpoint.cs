@@ -36,16 +36,19 @@ namespace api_counter.wwwapi9.Endpoints
             return TypedResults.Ok(repository.GetCounters((counter) => counter.Value > value));
         }
 
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public static async Task<IResult> GetCountersLessThan(IRepository repository, int value)
         {
             return TypedResults.Ok(repository.GetCounters((counter) => counter.Value < value));
         }
 
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public static async Task<IResult> PostCounterIncrement(IRepository repository, int id)
         {
             return TypedResults.Ok(repository.IncrementCounter(id));
         }
 
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public static async Task<IResult> PostCounterDecrement(IRepository repository, int id)
         {
             return TypedResults.Ok(repository.DecrementCounter(id));
