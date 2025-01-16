@@ -17,7 +17,42 @@ namespace api_counter.wwwapi9.Data
                 Counters.Add(new Counter() { Id = 5, Name = "Notepads", Value = 7 });
             }
         }
+
         public static List<Counter> Counters { get; set; } = new List<Counter>();
 
+        public static Counter GetCounterById(int id)
+        {
+            return Counters.FirstOrDefault(c => c.Id == id);
+        }
+
+        public static List<Counter> GetCountersGreaterThan(int number)
+        {
+            return Counters.Where(c => c.Value > number).ToList();
+        }
+
+        public static List<Counter> GetCountersLessThan(int number)
+        {
+            return Counters.Where(c => c.Value < number).ToList();
+        }
+
+        public static Counter IncrementCounterById(int id)
+        {
+            var counter = GetCounterById(id);
+            if (counter != null)
+            {
+                counter.Value++;
+            }
+            return counter;
+        }
+
+        public static Counter DecrementCounterById(int id)
+        {
+            var counter = GetCounterById(id);
+            if (counter != null)
+            {
+                counter.Value--;
+            }
+            return counter;
+        }
     }
 }
