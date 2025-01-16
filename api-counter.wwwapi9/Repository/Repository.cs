@@ -30,7 +30,7 @@ namespace api_counter.wwwapi9.Repository
             return --GetCounterById(id).Value;
         }
 
-        private Counter GetCounterById(int id)
+        private Counter GetCounterById(int id) 
         {
             return CounterHelper.Counters.Where(x => x.Id == id).First();
         }

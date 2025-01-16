@@ -14,8 +14,8 @@ namespace api_counter.wwwapi9.Endpoints
             counters.MapGet("/{id}", GetCounter);
             counters.MapGet("/greaterthan/{number}", GetCountersGreaterThan);
             counters.MapGet("/lessthan/{number}", GetCountersLessThan);
-            counters.MapPost("/increment", PostCounterIncrement);
-            counters.MapPost("/decrement", PostCounterDecrement);
+            counters.MapGet("/increment/{id}", GetCounterIncrement);
+            counters.MapGet("/decrement/{id}", GetCounterDecrement);
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -25,9 +25,16 @@ namespace api_counter.wwwapi9.Endpoints
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public static async Task<IResult> GetCounter(IRepository repository, int id)
         {
-            return TypedResults.Ok(repository.GetCounter(id));
+            try
+            {
+                return TypedResults.Ok(repository.GetCounter(id));
+            } catch (InvalidOperationException)
+            {
+                return TypedResults.NotFound(new { Message = "Could not find a counter with that ID." });
+            }
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -43,15 +50,29 @@ namespace api_counter.wwwapi9.Endpoints
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public static async Task<IResult> PostCounterIncrement(IRepository repository, int id)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public static async Task<IResult> GetCounterIncrement(IRepository repository, int id)
         {
-            return TypedResults.Ok(repository.IncrementCounter(id));
+            try
+            {
+                return TypedResults.Ok(repository.IncrementCounter(id));
+            } catch (InvalidOperationException)
+            {
+                return TypedResults.NotFound(new { Message = "Could not find a counter with that ID." });
+            }
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public static async Task<IResult> PostCounterDecrement(IRepository repository, int id)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public static async Task<IResult> GetCounterDecrement(IRepository repository, int id)
         {
-            return TypedResults.Ok(repository.DecrementCounter(id));
+            try 
+            {
+                return TypedResults.Ok(repository.DecrementCounter(id));
+            } catch (InvalidOperationException)
+                {
+                    return TypedResults.NotFound(new { Message = "Could not find a counter with that ID." });
+                }
         }
     }
 }
