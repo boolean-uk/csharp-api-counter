@@ -1,4 +1,6 @@
 using api_counter.wwwapi9.Data;
+using api_counter.wwwapi9.Endpoints;
+using api_counter.wwwapi9.Repository;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddScoped<IRepository, Repository>();
 
 var app = builder.Build();
 
@@ -21,30 +24,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.ConfigureCounterEndpoint();
 
 CounterHelper.Initialize();
-
-var counters = app.MapGroup("/counters");
-//TODO: 1. write a method that returns all counters in the counters list.  use method below as a starting point
-counters.MapGet("/", () =>
-{
-    return TypedResults.Ok();
-});
-
-
-//TODO: 2. write a method to return a single counter based on the id being passed in.  complete method below
-counters.MapGet("/{id}", (int id) =>
-{
-    return TypedResults.Ok(id);
-});
-
-//TODO: 3.  write another method that returns counters that have a value greater than the {number} passed in.        
-counters.MapGet("/greaterthan/{number}", (int number) =>
-{
-    return TypedResults.Ok(number);
-});
-
-////TODO:4. write another method that returns counters that have a value less than the {number} passed in.
 
 //Extension #1
 //TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
