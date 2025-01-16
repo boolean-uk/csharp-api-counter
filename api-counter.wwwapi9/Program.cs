@@ -54,14 +54,34 @@ counters.MapGet("/lessthan/{number}", IResult (int number) =>
 });
 
 //Extension #1
-//TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
-//e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
-//return the counter you have increased
+counters.MapPut("/{id}/increment", IResult (int id) =>
+{
+    var counter = CounterHelper.Counters.FirstOrDefault(c => c.Id == id);
+
+    if (counter == null)
+    {
+        return TypedResults.BadRequest();
+    }
+
+    counter.Value++;
+    
+    return TypedResults.Ok(counter);
+});
 
 //Extension #2
-//TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.
-//e.g.  with an Id=1  the Books counter Value should be decreased from 5 to 4
-//return the counter you have decreased
+counters.MapPut("/{id}/decrement", IResult (int id) =>
+{
+    var counter = CounterHelper.Counters.FirstOrDefault(c => c.Id == id);
+
+    if (counter == null)
+    {
+        return TypedResults.BadRequest();
+    }
+
+    counter.Value--;
+    
+    return TypedResults.Ok(counter);
+});
 
 //Super Optional Extension #1 - Refactor the code!
 // - move the EndPoints into their own class and ensure they are mapped correctly
