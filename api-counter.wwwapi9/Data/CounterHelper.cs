@@ -19,5 +19,6 @@ namespace api_counter.wwwapi9.Data
         }
         public static List<Counter> Counters { get; set; } = new List<Counter>();
 
+        
     }
 }
