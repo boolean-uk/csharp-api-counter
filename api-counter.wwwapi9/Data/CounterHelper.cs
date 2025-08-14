@@ -19,5 +19,20 @@ namespace api_counter.wwwapi9.Data
         }
         public static List<Counter> Counters { get; set; } = new List<Counter>();
 
+        public static Counter Increment(int id)
+        {
+            Counter counter = Counters.Where(counter => counter.Id == id).First();
+            counter.Value++;
+            return counter;
+
+
+        }
+
+        public static Counter Decrement(int id)
+        {
+            Counter counter = Counters.Where(counter => counter.Id == id).First();
+            counter.Value--;
+            return counter;
+        }
     }
 }
