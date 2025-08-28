@@ -39,8 +39,8 @@ namespace api_counter.wwwapi.Controllers
         [Route("{id}")]
         public async Task<IResult> GetACounter(int id)
         {
-            var counter = counters[id-1];
-           
+            var counter = counters[id - 1];
+
             //leave return line the same
             return counter != null ? TypedResults.Ok(counter) : TypedResults.NotFound();
         }
@@ -62,8 +62,8 @@ namespace api_counter.wwwapi.Controllers
         }
 
         ////TODO:4. write another controlller method that returns counters that have a value less than the {number} passed in.
-      
-              [HttpGet]
+
+        [HttpGet]
         [Route("smallerthan/{number}")]
         public async Task<IResult> GetCountersSmallerThanNumber(int number)
         {
@@ -79,16 +79,36 @@ namespace api_counter.wwwapi.Controllers
         }
 
 
-
         //Extension #1
         //TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
         //return the counter you have increased
-        
+
+        [HttpGet]
+        [Route("incrementcounter/{id}")]
+        public async Task<IResult> IncrementSelectedCounterByOne(int id)
+        {
+            var counter = counters[id - 1];
+            var incrementedCounter = counter.Value++;
+
+            return counter != null ? TypedResults.Ok(counter) : TypedResults.NotFound();
+        }
+
 
         //Extension #2
         //TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be decreased from 5 to 4
         //return the counter you have decreased
+
+        [HttpGet]
+        [Route("decrementcounter/{id}")]
+        public async Task<IResult> DecrementSelectedCounterByOne(int id)
+        {
+            var counter = counters[id - 1];
+            var incrementedCounter = counter.Value--;
+
+            return counter != null ? TypedResults.Ok(counter) : TypedResults.NotFound();
+        }
+
     }
 }
