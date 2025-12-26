@@ -28,23 +28,28 @@ var counters = app.MapGroup("/counters");
 //TODO: 1. write a method that returns all counters in the counters list.  use method below as a starting point
 counters.MapGet("/", () =>
 {
-    return TypedResults.Ok();
+    return TypedResults.Ok(CounterHelper.Counters);
 });
 
 
 //TODO: 2. write a method to return a single counter based on the id being passed in.  complete method below
 counters.MapGet("/{id}", (int id) =>
 {
-    return TypedResults.Ok(id);
+    return TypedResults.Ok(CounterHelper.Counters.First(counter => counter.Id == id));
 });
 
 //TODO: 3.  write another method that returns counters that have a value greater than the {number} passed in.        
 counters.MapGet("/greaterthan/{number}", (int number) =>
 {
-    return TypedResults.Ok(number);
+    return TypedResults.Ok(CounterHelper.Counters.Where(counter => counter.Value > number));
 });
 
 ////TODO:4. write another method that returns counters that have a value less than the {number} passed in.
+counters.MapGet("/lessthan/{number}", (int number) =>
+{
+    return TypedResults.Ok(CounterHelper.Counters.Where(counter => counter.Value < number));
+});
+
 
 //Extension #1
 //TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.

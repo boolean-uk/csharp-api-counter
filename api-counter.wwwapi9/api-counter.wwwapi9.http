@@ -5,12 +5,24 @@ Accept: application/json
 
 ###
 
-GET {{api_counter.wwwapi9_HostAddress}}/counters/1
+GET {{api_counter.wwwapi9_HostAddress}}/counters/3
 Accept: application/json
 
 ###
 
-GET {{api_counter.wwwapi9_HostAddress}}/counters/greaterthan/2
+GET {{api_counter.wwwapi9_HostAddress}}/counters/greaterthan/6
+Accept: application/json
+
+###
+
+
+GET {{api_counter.wwwapi9_HostAddress}}/counters/lessthan/7
+Accept: application/json
+
+###
+
+
+GET {{api_counter.wwwapi9_HostAddress}}/counters/greaterthan/3
 Accept: application/json
 
 ###
