@@ -30,16 +30,18 @@ namespace api_counter.wwwapi.Controllers
         public async Task<IResult> GetAllCounters()
         {
             //change the number returned in the line below to counter list variable
-            return TypedResults.Ok(1);
+            return TypedResults.Ok(counters);
         }
 
         //TODO: 2. write a method to return a single counter based on the id being passed in.  complete method below
         [HttpGet]
         [Route("{id}")]
-        public async Task<IResult> GetACounter()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IResult> GetACounter(int id)
         {
             //write code here replacing the string.Empty
-            var counter = string.Empty;
+            var counter = counters.Where(counter => counter.Id == id).FirstOrDefault();
            
             //leave return line the same
             return counter != null ? TypedResults.Ok(counter) : TypedResults.NotFound();
@@ -47,27 +49,54 @@ namespace api_counter.wwwapi.Controllers
 
         //TODO: 3.  write another controlller method that returns counters that have a value greater than the {number} passed in.        
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route("greaterthan/{number}")]
-        public async Task<IResult> Get()
+        public async Task<IResult> GreaterThan(int number)
         {
-            return TypedResults.Ok();
+            var counter = counters.Where(counter => counter.Value > number).ToList();
+            return counter.Count>0? Results.Ok(counter) : Results.NotFound();
         }
 
         ////TODO:4. write another controlller method that returns counters that have a value less than the {number} passed in.
-      
-      
-
-
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Route("lessthan/{number}")]
+        public async Task<IResult> LessThan(int number)
+        {
+            var counter = counters.Where(counter => counter.Value < number).ToList();
+            return counter.Count>0? Results.Ok(counter) : Results.NotFound();
+        }
 
         //Extension #1
         //TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
         //return the counter you have increased
-        
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Route("incrementvalue/{id}")]
+        public async Task<IResult> Increment(int id)
+        {
+            var counter = counters.Where(counter => counter.Id == id).FirstOrDefault();
+            counter.Value++;
+            return counter != null ? Results.Ok(counter) : Results.NotFound();
+        }
 
         //Extension #2
         //TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.
         //e.g.  with an Id=1  the Books counter Value should be decreased from 5 to 4
         //return the counter you have decreased
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Route("decrementvalue/{id}")]
+        public async Task<IResult> Decrement(int id)
+        {
+            var counter = counters.Where(counter => counter.Id == id).FirstOrDefault();
+            counter.Value--;
+            return counter != null ? Results.Ok(counter) : Results.NotFound();
+        }
     }
 }
