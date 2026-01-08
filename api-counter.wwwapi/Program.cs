@@ -17,10 +17,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+//************************************** From here to here is different *************************
 app.UseAuthorization();
 
 
+// This is actually the file that goes in and look for the files with "Controller"- suffix
 app.MapControllers();
+//***********************************************************************************************
+
 
 app.Run();

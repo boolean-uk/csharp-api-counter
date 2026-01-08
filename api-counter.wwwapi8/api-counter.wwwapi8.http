@@ -4,3 +4,4 @@ GET {{api_counter.wwwapi8_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+//GET http://localhost:5107/"THEN END POINT"  --> to see quick
