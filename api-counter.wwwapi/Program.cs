@@ -1,4 +1,7 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using api_counter.wwwapi.Controllers;
+using api_counter.wwwapi.Models;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -22,5 +25,10 @@ app.UseAuthorization();
 
 
 app.MapControllers();
+
+
+
+
+
 
 app.Run();
