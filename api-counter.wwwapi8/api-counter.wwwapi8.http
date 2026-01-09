@@ -4,3 +4,9 @@ GET {{api_counter.wwwapi8_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET http://localhost:5107/counters/
+Accept: application/json
+
+###
+GET http://localhost:5107/counters/2
