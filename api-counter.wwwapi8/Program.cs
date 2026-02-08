@@ -27,36 +27,65 @@ var counters = app.MapGroup("/counters");
 //TODO: 1. write a method that returns all counters in the counters list.  use method below as a starting point
 counters.MapGet("/", () =>
 {
-    return TypedResults.Ok();
+    return TypedResults.Ok(CounterHelper.Counters);
 });
 
 
 //TODO: 2. write a method to return a single counter based on the id being passed in.  complete method below
 counters.MapGet("/{id}", (int id) =>
 {    
-    return TypedResults.Ok(id);
+    var counter = CounterHelper.Counters.FirstOrDefault(c => c.Id == id);
+    if(counter == null)
+    {
+        return Results.NotFound($"Id: {id} not found");
+    }
+    //return found counter
+    return TypedResults.Ok(counter);
 });
 
 //TODO: 3.  write another controlller method that returns counters that have a value greater than the {number} passed in.        
 counters.MapGet("/greaterthan/{number}", (int number) =>
 {
-    return TypedResults.Ok(number);
+    var filteredCounters = CounterHelper.Counters.Where(c => c.Value > number).ToList();
+    return TypedResults.Ok(filteredCounters);
 });
 
 ////TODO:4. write another controlller method that returns counters that have a value less than the {number} passed in.
+counters.MapGet("/lessthan/{number}", (int number) =>
+{
+    var filteredCounters = CounterHelper.Counters.Where(c => c.Value < number).ToList();
+    return TypedResults.Ok(filteredCounters);
+});
 
 
+// Extension #1: Write a controller method that increments the Value property of a counter of any given Id.
+// e.g. with an Id=1 the Books counter Value should be increased from 5 to 6
+// return the counter you have increased
+counters.MapPost("/increment/{id}", IResult(int id) =>
+{
+    var counter = CounterHelper.Counters.FirstOrDefault(c => c.Id == id);
+    if (counter != null)
+    {
+        counter.Value++;
+        return TypedResults.Ok(counter);
+    }
 
-//Extension #1
-//TODO:  1. Write a controller method that increments the Value property of a counter of any given Id.
-//e.g.  with an Id=1  the Books counter Value should be increased from 5 to 6
-//return the counter you have increased
+    return TypedResults.NotFound();
+});
 
+// Extension #2: Write a controller method that decrements the Value property of a counter of any given Id.
+// e.g. with an Id=1 the Books counter Value should be decreased from 5 to 4
+// return the counter you have decreased
+counters.MapPost("/decrement/{id}", (int id) => //her kan man bruke IResults foran parameter
+{
+    var counter = CounterHelper.Counters.FirstOrDefault(c => c.Id == id);
+    if (counter != null && counter.Value > 0)
+    {
+        counter.Value--;
+        return Results.Ok(counter); //må bruke Results, siden IResults ikke er foran parameteret.
+    }
 
-//Extension #2
-//TODO: 2. Write a controller method that decrements the Value property of a counter of any given Id.
-//e.g.  with an Id=1  the Books counter Value should be decreased from 5 to 4
-//return the counter you have decreased
+    return TypedResults.NotFound();
+});
 
 app.Run();
-
